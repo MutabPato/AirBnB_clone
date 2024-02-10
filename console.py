@@ -110,18 +110,42 @@ class HBNBCommand(cmd.Cmd):
         """
         Prints all string representation of all instances
         based or not on the class name
+        usage: all or <class>.all()
         """
         args = shlex.split(line)
 
-        if args[0] not in globals():
+        if len(args) == 0:
+            all_instances = models.storage.all().values()
+            list_instances = [str(instance) for instance in all_instances]
+            print(list_instances)
+            return
+
+        class_name = args[0]
+
+        if class_name == 'all':
+            print("** class name missing **")
+            return
+
+        if class_name not in globals():
             print("** class doesn't exist **")
             return
 
-        all_instances = models.storage.all()
-        list_instances = []
-        for key in all_instances:
-            list_instances.append(str(all_instances.get(key)))
-        print(list_instances)
+        class_instances = models.storage.all().values()
+
+        filtered_instances = [
+                str(
+                    instance) for instance in class_instances if instance.
+                __class__.__name__ == class_name]
+        print(filtered_instances)
+
+    def precmd(self, line):
+        """
+        Parse line to handle syntax like User.all()
+        """
+        tokens = line.split('.')
+        if len(tokens) == 2 and tokens[1] == 'all()':
+            return 'all' + ' ' + tokens[0]
+        return (line)
 
     def do_update(self, line):
         """
