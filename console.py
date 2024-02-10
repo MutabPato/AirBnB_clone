@@ -57,7 +57,7 @@ class HBNBCommand(cmd.Cmd):
         elif args[0] not in globals():
             print("** class doesn't exist **")
             return
-        new_instance = globals()()[args[0]]()
+        new_instance = globals()[args[0]]()
         new_instance.save()
         print(new_instance.id)
 
