@@ -43,13 +43,15 @@ class TestFileStorage(unittest.TestCase):
         self.storage.save()
         new_storage = FileStorage()
         new_storage.reload()
-        self.assertIn("{}.{}".format(obj.__class__.__name__, obj.id), new_storage.all())
+        self.assertIn("{}.{}".format(
+            obj.__class__.__name__, obj.id), new_storage.all())
 
     def tearDown(self):
         """
         Sets to None
         """
         self.storage = None
+
 
 if __name__ == '__main__':
     unittest.main()
