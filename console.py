@@ -138,13 +138,33 @@ class HBNBCommand(cmd.Cmd):
                 __class__.__name__ == class_name]
         print(filtered_instances)
 
+    def do_count(self, line):
+        """
+        Retrieves the number of instances of a class
+        """
+        args = shlex.split(line)
+        if len(args) == 0:
+            print("** class name missing **")
+            return
+
+        class_name = args[0]
+        if class_name not in globals():
+            print("** class doesn't exist **")
+            return
+
+        count = sum(
+                1 for instance in models.storage.all().values() if instance.
+                __class__.__name__ == class_name)
+
+        print(count)
+
     def precmd(self, line):
         """
         Parse line to handle syntax like User.all()
         """
         tokens = line.split('.')
-        if len(tokens) == 2 and tokens[1] == 'all()':
-            return 'all' + ' ' + tokens[0]
+        if len(tokens) == 2:
+            return (tokens[1].strip('()') + ' ' + tokens[0])
         return (line)
 
     def do_update(self, line):
