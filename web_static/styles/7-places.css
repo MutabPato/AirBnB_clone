@@ -1,0 +1,29 @@
+.places {
+    display: contents;
+    align-items: center;
+    justify-content: center;
+}
+section h1 {
+    text-align: left;
+    font-size: 30px;
+    display: inline-block;
+    width: 100%;
+}
+article {
+    width: 390px;
+    padding: 20px;
+    margin: 20px;
+    border: solid  #FF5A5F 1px;
+    border-radius: 4px;
+    display: inline-flex;
+    justify-content: center;
+    margin-left: 35px;
+}
+article h2 {
+    font-size: 30px;
+    text-align: center;
+}
+#suite {
+    margin-left: 285px;
+    margin-right: 215px;
+}
